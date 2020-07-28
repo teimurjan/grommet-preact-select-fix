@@ -1,0 +1,14 @@
+diff --git a/node_modules/grommet/es6/components/Select/Select.js b/node_modules/grommet/es6/components/Select/Select.js
+index 45e00ad..49eb56d 100644
+--- a/node_modules/grommet/es6/components/Select/Select.js
++++ b/node_modules/grommet/es6/components/Select/Select.js
+@@ -144,7 +144,8 @@ var Select = /*#__PURE__*/forwardRef(function (_ref, ref) {
+     if (onChange) {
+       event.persist();
+       var adjustedEvent = event;
+-      adjustedEvent.target = inputRef.current;
++      // Preact support, target is read only property on a native event.
++      Object.defineProperty(event, 'target', { writable: true, value: inputRef.current, name });
+       adjustedEvent.value = nextValue;
+       adjustedEvent.option = option;
+       adjustedEvent.selected = nextSelected;

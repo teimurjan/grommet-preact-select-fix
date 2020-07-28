@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Box, Grommet, Select, Button } from "grommet";
+import { grommet } from "grommet/themes";
 
-function App() {
+const SimpleSelect = ({ theme, ...rest }) => {
+  const options = ["one", "two"];
+  const [value, setValue] = useState("");
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grommet full theme={theme || grommet}>
+      <Box fill align="center" justify="start" pad="large" gap="small">
+        <Button onClick={() => setOpen(!open)} label="Control the select" />
+        <Select
+          id="select"
+          name="select"
+          placeholder="Select"
+          open={open}
+          value={value}
+          options={options}
+          onChange={({ option }) => setValue(option)}
+          {...rest}
+        />
+      </Box>
+    </Grommet>
   );
-}
+};
 
-export default App;
+export default SimpleSelect;
